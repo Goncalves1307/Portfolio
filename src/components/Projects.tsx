@@ -102,16 +102,6 @@ const Projects = () => {
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-6 w-full">
-                      <div className="flex justify-between items-center">
-                        <span className="text-white font-medium">
-                          View Details
-                        </span>
-                        <ArrowUpRight className="text-white" size={20} />
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Project Info */}
@@ -171,7 +161,7 @@ const Projects = () => {
           {/* More Projects Button */}
           <motion.div variants={itemVariants} className="text-center mt-12">
             <a
-              href="https://github.com"
+              href="https://github.com/goncalves1307"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-ghost border border-gray-300 dark:border-gray-700"

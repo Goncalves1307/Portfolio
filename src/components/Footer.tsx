@@ -55,10 +55,10 @@ const Footer = () => {
                   <div>
                     <h4 className="text-lg font-semibold">Email</h4>
                     <a
-                      href="mailto:diogo.soares.g2003@icloud.com"
+                      href="mailto:diogog.dev@gmail.com"
                       className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
-                      diogo.soares.g2003@icloud.com
+                      diogog.dev@gmail.com
                     </a>
                   </div>
                 </div>

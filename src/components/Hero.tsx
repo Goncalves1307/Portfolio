@@ -67,7 +67,7 @@ const Hero = () => {
                     <button
                       className="btn btn-primary"
                       onClick={() => {
-                        window.open("/CV-PT.pdf", "_blank");
+                        window.open("/cv_pt.pdf", "_blank");
                         setShowPopUp(false);
                       }}
                     >
@@ -76,7 +76,7 @@ const Hero = () => {
                     <button
                       className="btn btn-secondary"
                       onClick={() => {
-                        window.open("/cv.pdf", "_blank");
+                        window.open("/cv_en.pdf", "_blank");
                         setShowPopUp(false);
                       }}
                     >

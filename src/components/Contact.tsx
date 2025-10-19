@@ -64,10 +64,10 @@ const Contact = () => {
                   <div>
                     <h4 className="text-lg font-semibold">Email</h4>
                     <a
-                      href="mailto:diogo.soares.g2003@icloud.com"
+                      href="mailto:diogog.dev@gmail.com"
                       className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
-                      diogo.soares.g2003@icloud.com
+                      diogog.dev@gmail.com
                     </a>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ const Contact = () => {
                 <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
                   <a
-                    href="https://github.com/Goncalves745"
+                    href="https://github.com/Goncalves1307"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary-100 hover:text-primary-600 dark:hover:bg-primary-900/30 dark:hover:text-primary-400 transition-colors"
