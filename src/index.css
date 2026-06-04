@@ -80,3 +80,73 @@
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
 }
+
+/* ───────────────────────── Terminal mode ───────────────────────── */
+/* Phosphor theme variables live on .terminal-root, fully independent of the
+   site-wide dark/light ThemeContext used by the GUI mode. The `theme` command
+   and HUD swatches overwrite these vars at runtime (see terminal/themes.ts). */
+.terminal-root {
+  --term-bg: #0d1117;
+  --term-bg-deep: #010409;
+  --term-fg: #c9d1d9;
+  --term-fg-dim: #8b949e;
+  --term-accent: #39d353;
+  --term-accent-soft: #56d364;
+  --term-glow: rgba(57, 211, 83, 0.55);
+  --term-amber: #d29922;
+  --term-red: #f85149;
+  --term-blue: #58a6ff;
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(120% 120% at 50% 0%, var(--term-bg) 0%, var(--term-bg-deep) 100%);
+  color: var(--term-fg);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.5;
+}
+
+/* Phosphor color utility classes used by output tokens */
+.t-fg      { color: var(--term-fg); }
+.t-dim     { color: var(--term-fg-dim); }
+.t-accent  { color: var(--term-accent); text-shadow: 0 0 6px var(--term-glow); }
+.t-amber   { color: var(--term-amber); }
+.t-red     { color: var(--term-red); }
+.t-blue    { color: var(--term-blue); }
+.t-link    { color: var(--term-blue); text-decoration: underline; cursor: pointer; }
+
+/* Cursor block + caret */
+.t-caret {
+  display: inline-block;
+  width: 0.6ch;
+  background: var(--term-accent);
+  box-shadow: 0 0 8px var(--term-glow);
+  color: transparent;
+}
+
+/* CRT overlay (scanlines + vignette); flicker added only when motion allowed */
+.t-crt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.18) 3px),
+    radial-gradient(120% 120% at 50% 50%, transparent 60%, rgba(0,0,0,0.55) 100%);
+}
+
+@keyframes t-flicker { 0%,100% { opacity: 1; } 50% { opacity: 0.94; } }
+@keyframes t-blink   { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes t-glow-pulse {
+  0%,100% { text-shadow: 0 0 6px var(--term-glow); }
+  50%     { text-shadow: 0 0 18px var(--term-glow); }
+}
+
+/* Final states are visible by DEFAULT. Motion is opt-in only. */
+@media (prefers-reduced-motion: no-preference) {
+  .t-caret      { animation: t-blink 1s steps(1) infinite; }
+  .t-crt.t-crt-flicker::after { animation: t-flicker 4s ease-in-out infinite; }
+  .t-banner     { animation: t-glow-pulse 3s ease-in-out infinite; }
+}
