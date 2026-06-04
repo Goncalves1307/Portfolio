@@ -6,6 +6,7 @@ import { useTypewriter, sliceLines } from '../../hooks/useTypewriter';
 import { run, completionNames } from '../../terminal/commands';
 import type { OutputLine } from '../../terminal/types';
 import { applyTheme } from '../../terminal/themes';
+import Hud from './Hud';
 
 type Block = { command: string | null; lines: OutputLine[] };
 type TerminalProps = { onExit: () => void };
@@ -22,6 +23,8 @@ export default function Terminal({ onExit }: TerminalProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [theme, setTheme] = useState<string>(() => localStorage.getItem('termTheme') ?? 'green');
+  const [matrixOn, setMatrixOn] = useState(false);
+  const [crtOn, setCrtOn] = useState(() => localStorage.getItem('termCrt') === '1');
 
   // Typewriter drives ONLY the most recent block.
   const lastLines = blocks.length ? blocks[blocks.length - 1].lines : [];
@@ -32,6 +35,9 @@ export default function Terminal({ onExit }: TerminalProps) {
     if (rootRef.current) applyTheme(rootRef.current, theme);
     localStorage.setItem('termTheme', theme);
   }, [theme]);
+
+  // Persist CRT preference.
+  useEffect(() => { localStorage.setItem('termCrt', crtOn ? '1' : '0'); }, [crtOn]);
 
   // Auto-scroll to bottom as output reveals.
   useEffect(() => {
@@ -62,7 +68,8 @@ export default function Terminal({ onExit }: TerminalProps) {
       case 'goto-gui': window.location.hash = 'gui'; break;
       case 'exit': onExit(); break;
       case 'theme': if (arg) setTheme(arg); break;
-      // 'matrix' | 'crt' handled in Task 16
+      case 'matrix': setMatrixOn((m) => !m); break;
+      case 'crt': setCrtOn((c) => !c); break;
       default: break;
     }
   }, [onExit]);
@@ -123,9 +130,16 @@ export default function Terminal({ onExit }: TerminalProps) {
   return (
     <div
       ref={rootRef}
-      className="terminal-root flex flex-col p-4 sm:p-6"
+      className={`terminal-root flex flex-col p-4 sm:p-6 ${crtOn ? 't-crt t-crt-flicker' : ''}`}
       onClick={() => inputRef.current?.focus()}
     >
+      <Hud
+        onTheme={(n) => setTheme(n)}
+        matrixOn={matrixOn}
+        onToggleMatrix={() => setMatrixOn((m) => !m)}
+        crtOn={crtOn}
+        onToggleCrt={() => setCrtOn((c) => !c)}
+      />
       <AsciiBanner />
 
       <div className="flex flex-wrap gap-2 my-3">
