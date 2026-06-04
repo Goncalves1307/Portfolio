@@ -1,4 +1,7 @@
-import { profile, skillGroups, projects } from './content';
+import {
+  profile, skillGroups, projects, education, work,
+  interests, experienceTimeline, stackGroups, cvFiles,
+} from './content';
 import type { CommandContext, OutputLine, Registry, RunResult } from './types';
 import { t, line, link, blank } from './types';
 
@@ -75,6 +78,67 @@ function helpLines(registry: Registry): OutputLine[] {
   return out;
 }
 
+function experienceLines(): OutputLine[] {
+  const out: OutputLine[] = [line('experience', 't-accent'), blank];
+  experienceTimeline.forEach((e, i) => {
+    const connector = i === experienceTimeline.length - 1 ? ' ' : '│';
+    out.push([t('  ● ', 't-accent'), t(e.when, 't-amber')]);
+    out.push([t('  ' + connector + '   ', 't-dim'), t(e.what, 't-fg'), t(`  · ${e.where}`, 't-dim')]);
+    if (i !== experienceTimeline.length - 1) out.push([t('  │', 't-dim')]);
+  });
+  return out;
+}
+
+function stackLines(): OutputLine[] {
+  const out: OutputLine[] = [line('stack', 't-accent'), blank];
+  for (const g of stackGroups) {
+    out.push([t(g.group.padEnd(10), 't-amber'), t(g.items.map((x) => `[${x}]`).join(' '), 't-fg')]);
+  }
+  return out;
+}
+
+function interestsLines(): OutputLine[] {
+  return [line('interests', 't-accent'), blank, ...interests.map((i) => line('  ▸ ' + i))];
+}
+
+function socialLines(): OutputLine[] {
+  return [
+    line('social', 't-accent'), blank,
+    [t('github    ', 't-dim'), link(profile.github, profile.github)],
+    [t('linkedin  ', 't-dim'), link(profile.linkedin, profile.linkedin)],
+    [t('email     ', 't-dim'), link(profile.email, `mailto:${profile.email}`)],
+  ];
+}
+
+function neofetchLines(): OutputLine[] {
+  const logo = [
+    '      ___      ', '     (.. \\     ', '     (<>  |    ',
+    '    /(__)  |   ', '   ( /_____/   ', '    \\______/   ',
+  ];
+  const info: OutputLine[] = [
+    [t('guest', 't-accent'), t('@', 't-dim'), t('diogo.dev', 't-accent')],
+    [t('-----------', 't-dim')],
+    [t('OS:      ', 't-amber'), t('phosphor 3.0.1')],
+    [t('Host:    ', 't-amber'), t(profile.role)],
+    [t('Uptime:  ', 't-amber'), t('since 2022')],
+    [t('Shell:   ', 't-amber'), t('diogo-sh')],
+    [t('Edu:     ', 't-amber'), t(`${education.degree} · ${education.school}`)],
+    [t('Work:    ', 't-amber'), t(`${work.title} · ${work.company}`)],
+    [t('Location:', 't-amber'), t(' ' + profile.location)],
+  ];
+  const rows = Math.max(logo.length, info.length);
+  const out: OutputLine[] = [];
+  for (let i = 0; i < rows; i++) {
+    const l = logo[i] ?? '              ';
+    out.push([t(l, 't-accent'), ...(info[i] ?? [t('')])]);
+  }
+  return out;
+}
+
+function projectById(id: string) {
+  return projects.find((p) => p.id === id.toLowerCase() || p.name.toLowerCase() === id.toLowerCase());
+}
+
 // ── word wrap helper (exported for reuse/testing) ─────────────────────
 export function wrap(text: string, width: number): string[] {
   const words = text.split(/\s+/);
@@ -118,6 +182,61 @@ export const registry: Registry = {
   clear: {
     name: 'clear', category: 'system', summary: 'clear the screen',
     run: () => ({ kind: 'clear' }),
+  },
+  experience: {
+    name: 'experience', category: 'me', summary: 'career timeline',
+    run: () => ({ kind: 'output', lines: experienceLines() }),
+  },
+  stack: {
+    name: 'stack', category: 'me', summary: 'tech I use, grouped',
+    run: () => ({ kind: 'output', lines: stackLines() }),
+  },
+  interests: {
+    name: 'interests', category: 'me', summary: 'things I enjoy',
+    run: () => ({ kind: 'output', lines: interestsLines() }),
+  },
+  social: {
+    name: 'social', category: 'me', summary: 'social links',
+    run: () => ({ kind: 'output', lines: socialLines() }),
+  },
+  neofetch: {
+    name: 'neofetch', category: 'system', summary: 'system info + logo',
+    run: () => ({ kind: 'output', lines: neofetchLines() }),
+  },
+  project: {
+    name: 'project', category: 'work', summary: 'open a project repo',
+    usage: 'project <name>',
+    run: (args) => {
+      const id = args[0];
+      if (!id) return { kind: 'output', lines: [line('usage: project <name>', 't-amber'),
+        ...projects.map((p) => line('  ' + p.id, 't-dim'))] };
+      const p = projectById(id);
+      if (!p) return { kind: 'output', lines: [[t(`unknown project: ${id}`, 't-red')]] };
+      if (!p.repo) return { kind: 'output', lines: [[t(`${p.name} has no public repo.`, 't-amber')]] };
+      return { kind: 'effect', effect: 'open-url', arg: p.repo,
+        lines: [[t(`opening ${p.name} → `, 't-dim'), link(p.repo, p.repo)]] };
+    },
+  },
+  resume: {
+    name: 'resume', category: 'me', summary: 'download my CV (PT/EN)',
+    usage: 'resume [pt|en]',
+    run: (args) => {
+      const which = (args[0] ?? '').toLowerCase();
+      if (which === 'pt' || which === 'en') {
+        return { kind: 'effect', effect: 'download', arg: cvFiles[which],
+          lines: [[t(`downloading CV (${which.toUpperCase()})…`, 't-dim')]] };
+      }
+      return { kind: 'output', lines: [
+        line('resume / cv', 't-accent'), blank,
+        [t('  '), link('Download CV (PT)', cvFiles.pt)],
+        [t('  '), link('Download CV (EN)', cvFiles.en)],
+        [t('  or: ', 't-dim'), t('resume pt', 't-amber'), t(' / ', 't-dim'), t('resume en', 't-amber')],
+      ] };
+    },
+  },
+  cv: {
+    name: 'cv', category: 'me', summary: 'alias of resume', hidden: true,
+    run: (args, ctx) => ctx.registry.resume.run(args, ctx),
   },
 };
 
