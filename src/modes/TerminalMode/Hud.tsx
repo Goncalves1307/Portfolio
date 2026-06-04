@@ -19,8 +19,8 @@ export default function Hud({ onTheme, matrixOn, onToggleMatrix, crtOn, onToggle
   }, []);
 
   return (
-    <div className="absolute top-3 right-3 z-40 flex items-center gap-3 text-xs select-none">
-      <span className="t-dim tabular-nums">{clock}</span>
+    <div className="absolute top-3 right-3 z-40 flex flex-wrap items-center gap-3 text-xs select-none max-w-[60vw]">
+      <span className="hidden xs:inline t-dim tabular-nums">{clock}</span>
       <div className="flex items-center gap-1">
         {THEME_NAMES.map((name) => (
           <button

@@ -51,7 +51,7 @@ export default function Terminal({ onExit }: TerminalProps) {
     const res = run('whoami', { history: [], theme });
     if (res.kind === 'output') setBlocks([{ command: 'whoami', lines: res.lines }]);
     setHistory(['whoami']);
-  }, []);
+  }, [theme]);
 
   useEffect(() => {
     if (phase === 'ready') inputRef.current?.focus();
@@ -90,7 +90,7 @@ export default function Terminal({ onExit }: TerminalProps) {
       return;
     }
     setBlocks((b) => [...b, { command: cmd, lines: res.lines }]);
-  }, [history, handleEffect]);
+  }, [history, handleEffect, theme]);
 
   const onSubmit = useCallback(() => {
     if (!done) { skip(); return; }
@@ -157,7 +157,7 @@ export default function Terminal({ onExit }: TerminalProps) {
           ))}
         </div>
 
-        <div ref={scrollRef} className="flex-1 overflow-y-auto pr-1">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0 pr-1">
           {blocks.map((b, bi) => {
             const isLast = bi === blocks.length - 1;
             const renderLines = isLast ? sliceLines(b.lines, visible) : b.lines;
