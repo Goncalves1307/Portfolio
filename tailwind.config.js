@@ -89,7 +89,9 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
+      screens: { xs: '420px' },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in',
         'slide-up': 'slideUp 0.5s ease-out',

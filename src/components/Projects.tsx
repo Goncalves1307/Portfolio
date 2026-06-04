@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ArrowUpRight, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { projectsData } from "../data/projectsData";
 
 const Projects = () => {
