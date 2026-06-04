@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Mail, MapPin, Github, Linkedin } from "lucide-react";
+import { siteConfig } from "../data/siteConfig";
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -64,10 +65,10 @@ const Contact = () => {
                   <div>
                     <h4 className="text-lg font-semibold">Email</h4>
                     <a
-                      href="mailto:diogog.dev@gmail.com"
+                      href={`mailto:${siteConfig.email}`}
                       className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
-                      diogog.dev@gmail.com
+                      {siteConfig.email}
                     </a>
                   </div>
                 </div>
@@ -80,7 +81,7 @@ const Contact = () => {
                   <div>
                     <h4 className="text-lg font-semibold">Location</h4>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Matosinhos, Portugal
+                      {siteConfig.location}
                     </p>
                   </div>
                 </div>
@@ -91,7 +92,7 @@ const Contact = () => {
                 <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
                 <div className="flex space-x-4">
                   <a
-                    href="https://github.com/Goncalves1307"
+                    href={siteConfig.social.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary-100 hover:text-primary-600 dark:hover:bg-primary-900/30 dark:hover:text-primary-400 transition-colors"
@@ -100,7 +101,7 @@ const Contact = () => {
                     <Github size={20} />
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/diogo-goncalves-448814248"
+                    href={siteConfig.social.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary-100 hover:text-primary-600 dark:hover:bg-primary-900/30 dark:hover:text-primary-400 transition-colors"

@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .lock { display:flex; align-items:center; gap:36px; }
+  .mark { display:flex; align-items:center; gap:11px; font-size:26px; font-weight:700; letter-spacing:-0.02em; }
+  .mark svg { width:30px; height:30px; }
+  .dotw { display:flex; align-items:center; gap:11px; padding:16px 22px; border-radius:14px; }
+  .light-chip { background:var(--light); }
+  .dark-chip { background:var(--dark); }
+  .dark-chip .mark { color:#fff; }
+</style></head>
+<body>
+  <div class="lock">
+    <div class="dotw light-chip">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <span><span style="color:#059669">Diogo</span><span style="color:#0f172a">.dev</span></span>
+      </span>
+    </div>
+    <div class="dotw dark-chip">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <span><span style="color:#34d399">Diogo</span><span style="color:#fff">.dev</span></span>
+      </span>
+    </div>
+  </div>
+  <div class="muted" style="margin-top:16px">Brand mark = Lucide <span class="mono">Code</span> glyph · wordmark in Inter Bold · green accent on the name, ink/white on <span class="mono">.dev</span></div>
+</body></html>

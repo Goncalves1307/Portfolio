@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .pill { font-size:13px; font-weight:600; padding:5px 14px; border-radius:9999px; }
+  .eb { background:#ecfdf5; color:#047857; }
+  .ebt { background:#f0fdfa; color:#0f766e; }
+  .ebl { background:#f7fee7; color:#4d7c0f; }
+  .chip { font-size:13px; font-weight:500; padding:7px 16px; border-radius:9999px; cursor:pointer; }
+  .chip.active { background:#0d9488; color:#fff; box-shadow:var(--shadow-md); }
+  .chip.idle { background:var(--gray-100); color:var(--fg2); }
+  .tag { font-size:12px; font-weight:500; padding:3px 10px; border-radius:6px; background:#ecfdf5; color:#047857; }
+</style></head>
+<body>
+  <div class="row"><span class="pill eb">About Me</span><span class="pill ebt">My Work</span><span class="pill ebl">My Skills</span></div>
+  <div class="row" style="margin-top:12px"><span class="chip active">All</span><span class="chip idle">Web App</span><span class="chip idle">Android App</span><span class="chip idle">Game</span></div>
+  <div class="row" style="margin-top:12px"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">Tailwind</span></div>
+  <div class="muted" style="margin-top:14px">Eyebrow pills (tinted 50/700) · filter chips (active = filled teal) · tech tags <span class="mono">rounded-md</span></div>
+</body></html>

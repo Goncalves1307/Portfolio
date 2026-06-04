@@ -1,0 +1,185 @@
+/* ============================================================
+   Diogo.dev — Design System: Colors & Type
+   A green-forward re-theme of Diogo Gonçalves' portfolio.
+   Source repo: github.com/Goncalves1307/Portfolio
+   Original palette was blue/purple/teal; re-themed to a
+   green family (emerald primary, teal secondary, lime accent)
+   per the brand owner's preference for green.
+   ============================================================ */
+
+/* ----- Webfont (Inter — same family the live site loads from Google Fonts) ----- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ---------- PRIMARY · Emerald (the brand green) ---------- */
+  --primary-50:  #ecfdf5;
+  --primary-100: #d1fae5;
+  --primary-200: #a7f3d0;
+  --primary-300: #6ee7b7;
+  --primary-400: #34d399;
+  --primary-500: #10b981;  /* core brand green */
+  --primary-600: #059669;  /* buttons / fills */
+  --primary-700: #047857;  /* button hover */
+  --primary-800: #065f46;
+  --primary-900: #064e3b;
+
+  /* ---------- SECONDARY · Teal ---------- */
+  --secondary-50:  #f0fdfa;
+  --secondary-100: #ccfbf1;
+  --secondary-200: #99f6e4;
+  --secondary-300: #5eead4;
+  --secondary-400: #2dd4bf;
+  --secondary-500: #14b8a6;
+  --secondary-600: #0d9488;
+  --secondary-700: #0f766e;
+  --secondary-800: #115e59;
+  --secondary-900: #134e4a;
+
+  /* ---------- ACCENT · Lime (energy / highlights) ---------- */
+  --accent-50:  #f7fee7;
+  --accent-100: #ecfccb;
+  --accent-200: #d9f99d;
+  --accent-300: #bef264;
+  --accent-400: #a3e635;
+  --accent-500: #84cc16;
+  --accent-600: #65a30d;
+  --accent-700: #4d7c0f;
+  --accent-800: #3f6212;
+  --accent-900: #365314;
+
+  /* ---------- SEMANTIC ---------- */
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --warning-500: #f59e0b;
+  --warning-600: #d97706;
+  --error-500:   #ef4444;
+  --error-600:   #dc2626;
+
+  /* ---------- NEUTRALS (slate-tinted grays) ---------- */
+  --light: #f8fafc;   /* page background, light mode */
+  --dark:  #0f172a;   /* page background, dark mode / ink */
+  --gray-50:  #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* ---------- SEMANTIC SURFACE / TEXT TOKENS (light mode) ---------- */
+  --bg:        var(--light);     /* page background */
+  --surface:   #ffffff;          /* cards, header glass */
+  --surface-2: var(--gray-50);   /* alternating sections */
+  --fg1:       var(--dark);      /* primary text / headings */
+  --fg2:       var(--gray-600);  /* body copy */
+  --fg3:       var(--gray-500);  /* muted / meta */
+  --border:    var(--gray-200);  /* hairline borders */
+  --brand:     var(--primary-600);
+  --brand-ink: var(--primary-700);
+
+  /* ---------- TYPE SCALE ---------- */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold:600;
+  --fw-bold:    700;
+  --fw-extra:   800;
+
+  /* fluid display → caption, tracks the live site's responsive headings */
+  --text-h1: clamp(2.5rem, 1.6rem + 3.6vw, 3.75rem);  /* 40 → 60px */
+  --text-h2: clamp(1.875rem, 1.4rem + 1.9vw, 2.25rem);/* 30 → 36px */
+  --text-h3: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);  /* 24 → 30px */
+  --text-h4: 1.25rem;   /* 20px */
+  --text-lg: 1.125rem;  /* 18px lead paragraph */
+  --text-base: 1rem;    /* 16px body */
+  --text-sm: 0.875rem;  /* 14px meta / pills */
+  --text-xs: 0.75rem;   /* 12px tags */
+
+  --leading-tight: 1.15;
+  --leading-snug:  1.35;
+  --leading-relaxed: 1.65;
+
+  /* ---------- RADII ---------- */
+  --radius-sm: 0.375rem;  /* tags / chips */
+  --radius-md: 0.5rem;    /* buttons (rounded-lg) */
+  --radius-lg: 0.75rem;   /* cards (rounded-xl) */
+  --radius-xl: 1rem;      /* hero image (rounded-2xl) */
+  --radius-full: 9999px;  /* pills, avatars, icon wells */
+
+  /* ---------- ELEVATION (Tailwind shadow scale) ---------- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* ---------- SPACING (4px base) ---------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* ---------- MOTION ---------- */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-slow: 500ms;
+}
+
+/* ---------- DARK MODE (class strategy, matches live site `.dark`) ---------- */
+.dark {
+  --bg:        var(--dark);
+  --surface:   var(--gray-800);
+  --surface-2: var(--gray-900);
+  --fg1:       var(--light);
+  --fg2:       var(--gray-300);
+  --fg3:       var(--gray-400);
+  --border:    var(--gray-700);
+  --brand:     var(--primary-400);
+  --brand-ink: var(--primary-300);
+}
+
+/* ============================================================
+   SEMANTIC TYPE CLASSES — apply directly or copy the rules
+   ============================================================ */
+body {
+  font-family: var(--font-sans);
+  color: var(--fg1);
+  background: var(--bg);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+}
+
+.h1 { font-size: var(--text-h1); font-weight: var(--fw-bold); line-height: var(--leading-tight); letter-spacing: -0.02em; }
+.h2 { font-size: var(--text-h2); font-weight: var(--fw-bold); line-height: var(--leading-tight); letter-spacing: -0.015em; }
+.h3 { font-size: var(--text-h3); font-weight: var(--fw-bold); line-height: var(--leading-tight); letter-spacing: -0.01em; }
+.h4 { font-size: var(--text-h4); font-weight: var(--fw-semibold); line-height: var(--leading-snug); }
+.lead { font-size: var(--text-lg); font-weight: var(--fw-regular); line-height: var(--leading-relaxed); color: var(--fg2); }
+.body { font-size: var(--text-base); font-weight: var(--fw-regular); line-height: var(--leading-relaxed); color: var(--fg2); }
+.meta { font-size: var(--text-sm); font-weight: var(--fw-medium); color: var(--fg3); }
+.tag  { font-size: var(--text-xs); font-weight: var(--fw-medium); }
+
+/* Brand-tinted inline accent, e.g. the green word in a heading */
+.text-brand { color: var(--brand); }
+
+/* Eyebrow pill above section headings (bg-primary-50 / text-primary-700) */
+.eyebrow {
+  display: inline-block;
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--primary-700);
+  background: var(--primary-50);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+.dark .eyebrow { color: var(--primary-300); background: rgb(6 78 59 / 0.3); }

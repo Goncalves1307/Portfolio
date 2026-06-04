@@ -1,4 +1,5 @@
 import { Mail, MapPin } from "lucide-react";
+import { siteConfig } from "../data/siteConfig";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,15 +11,15 @@ const Footer = () => {
           {/* About Column */}
           <div>
             <h3 className="text-xl font-bold mb-4 flex items-center">
-              <span className="text-primary-500">Diogo</span>
-              <span>.dev</span>
+              <span className="text-primary-500">{siteConfig.brandPrefix}</span>
+              <span>{siteConfig.brandSuffix}</span>
             </h3>
             <p className="text-gray-400 mb-6">
               A passionate computer science student and developer building
               impactful digital solutions through code and creativity.
             </p>
             <p className="text-sm text-gray-500">
-              © {currentYear} Diogo Soares. All rights reserved.
+              © {currentYear} {siteConfig.name}. All rights reserved.
             </p>
           </div>
 
@@ -55,10 +56,10 @@ const Footer = () => {
                   <div>
                     <h4 className="text-lg font-semibold">Email</h4>
                     <a
-                      href="mailto:diogog.dev@gmail.com"
+                      href={`mailto:${siteConfig.email}`}
                       className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
-                      diogog.dev@gmail.com
+                      {siteConfig.email}
                     </a>
                   </div>
                 </div>
@@ -71,7 +72,7 @@ const Footer = () => {
                   <div>
                     <h4 className="text-lg font-semibold">Location</h4>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Matosinhos, Portugal
+                      {siteConfig.location}
                     </p>
                   </div>
                 </div>

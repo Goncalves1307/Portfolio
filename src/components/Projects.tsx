@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ArrowUpRight, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { projectsData } from "../data/projectsData";
+import { siteConfig } from "../data/siteConfig";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -161,7 +162,7 @@ const Projects = () => {
           {/* More Projects Button */}
           <motion.div variants={itemVariants} className="text-center mt-12">
             <a
-              href="https://github.com/goncalves1307"
+              href={siteConfig.social.github}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-ghost border border-gray-300 dark:border-gray-700"

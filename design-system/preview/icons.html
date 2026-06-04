@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  .grid { display:grid; grid-template-columns:repeat(8,1fr); gap:14px 10px; }
+  .ic { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .ic svg { width:24px; height:24px; stroke:#0f172a; stroke-width:2; }
+  .ic span { font-size:10px; color:var(--fg3); }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="ic"><i data-lucide="code"></i><span>code</span></div>
+    <div class="ic"><i data-lucide="menu"></i><span>menu</span></div>
+    <div class="ic"><i data-lucide="moon"></i><span>moon</span></div>
+    <div class="ic"><i data-lucide="sun"></i><span>sun</span></div>
+    <div class="ic"><i data-lucide="github"></i><span>github</span></div>
+    <div class="ic"><i data-lucide="linkedin"></i><span>linkedin</span></div>
+    <div class="ic"><i data-lucide="mail"></i><span>mail</span></div>
+    <div class="ic"><i data-lucide="map-pin"></i><span>map-pin</span></div>
+    <div class="ic"><i data-lucide="arrow-right"></i><span>arrow-right</span></div>
+    <div class="ic"><i data-lucide="download"></i><span>download</span></div>
+    <div class="ic"><i data-lucide="briefcase"></i><span>briefcase</span></div>
+    <div class="ic"><i data-lucide="graduation-cap"></i><span>grad-cap</span></div>
+    <div class="ic"><i data-lucide="heart"></i><span>heart</span></div>
+    <div class="ic"><i data-lucide="layers"></i><span>layers</span></div>
+    <div class="ic"><i data-lucide="database"></i><span>database</span></div>
+    <div class="ic"><i data-lucide="shield-check"></i><span>shield</span></div>
+  </div>
+  <div class="muted" style="margin-top:16px">Lucide · 2px stroke · round caps · 24px grid · <span class="mono">currentColor</span> (green on hover)</div>
+  <script>lucide.createIcons();</script>
+</body></html>

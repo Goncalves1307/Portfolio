@@ -1,0 +1,19 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .e { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .box { width:64px; height:48px; background:#d1fae5; border:1.5px solid #10b981; }
+  .r1 { border-radius:6px; } .r2 { border-radius:8px; } .r3 { border-radius:12px; } .r4 { border-radius:16px; } .r5 { border-radius:9999px; }
+  .lab { font-size:11px; font-weight:600; }
+  .sub { font-size:10px; color:var(--fg3); }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="e"><div class="box r1"></div><span class="lab">md · 6px</span><span class="sub">chips</span></div>
+    <div class="e"><div class="box r2"></div><span class="lab">lg · 8px</span><span class="sub">buttons</span></div>
+    <div class="e"><div class="box r3"></div><span class="lab">xl · 12px</span><span class="sub">cards</span></div>
+    <div class="e"><div class="box r4"></div><span class="lab">2xl · 16px</span><span class="sub">hero img</span></div>
+    <div class="e"><div class="box r5"></div><span class="lab">full</span><span class="sub">pills/avatar</span></div>
+  </div>
+  <div class="muted" style="margin-top:14px">Corner radii in active use across the system</div>
+</body></html>

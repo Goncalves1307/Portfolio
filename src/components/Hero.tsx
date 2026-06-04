@@ -1,20 +1,33 @@
 import { ArrowRight, Download } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
+import { useEnable3D } from "../hooks/useEnable3D";
+
+// Code-split the WebGL bundle so it never lands in the initial chunk.
+const HeroCanvas = lazy(() => import("./three/HeroCanvas"));
 
 const Hero = () => {
   const [showPopUp, setShowPopUp] = useState(false);
+  const { darkMode } = useTheme();
+  const enable3D = useEnable3D();
 
   return (
     <section
       className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden"
       id="hero"
     >
-      {/* Background Elements */}
+      {/* Background Elements — static blurred blobs double as the reduced-motion
+          / mobile fallback; the 3D canvas mounts on top of them when enabled. */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-[10%] -right-[10%] w-[500px] h-[500px] bg-primary-100/30 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
         <div className="absolute top-[20%] -left-[5%] w-[300px] h-[300px] bg-secondary-100/30 dark:bg-secondary-900/10 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-[10%] left-[30%] w-[400px] h-[400px] bg-accent-100/30 dark:bg-accent-900/10 rounded-full blur-3xl"></div>
+        {enable3D && (
+          <Suspense fallback={null}>
+            <HeroCanvas darkMode={darkMode} />
+          </Suspense>
+        )}
       </div>
 
       <div className="container-custom">

@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .tk { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .tk .chip { height:54px; }
+  .tk .meta { padding:7px 10px; }
+  .tk .nm { font-size:12px; font-weight:600; }
+  .tk .hx { font-size:10.5px; font-family:ui-monospace,Menlo,monospace; color:var(--fg3); }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="tk"><div class="chip" style="background:#16a34a"></div><div class="meta"><div class="nm">Success</div><div class="hx">#16a34a</div></div></div>
+    <div class="tk"><div class="chip" style="background:#f59e0b"></div><div class="meta"><div class="nm">Warning</div><div class="hx">#f59e0b</div></div></div>
+    <div class="tk"><div class="chip" style="background:#ef4444"></div><div class="meta"><div class="nm">Error</div><div class="hx">#ef4444</div></div></div>
+    <div class="tk"><div class="chip" style="background:#0f172a"></div><div class="meta"><div class="nm">Ink / Dark</div><div class="hx">#0f172a</div></div></div>
+  </div>
+  <div class="grid" style="margin-top:12px">
+    <div class="tk"><div class="chip" style="background:#f8fafc"></div><div class="meta"><div class="nm">Light bg</div><div class="hx">#f8fafc</div></div></div>
+    <div class="tk"><div class="chip" style="background:#e5e7eb"></div><div class="meta"><div class="nm">Border</div><div class="hx">gray-200</div></div></div>
+    <div class="tk"><div class="chip" style="background:#6b7280"></div><div class="meta"><div class="nm">Body</div><div class="hx">gray-500</div></div></div>
+    <div class="tk"><div class="chip" style="background:#111827"></div><div class="meta"><div class="nm">Heading</div><div class="hx">gray-900</div></div></div>
+  </div>
+</body></html>

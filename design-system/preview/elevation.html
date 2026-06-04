@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; align-items:end; }
+  .e { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .box { width:100%; background:#fff; border-radius:10px; }
+  .b1 { height:40px; box-shadow:var(--shadow-sm); }
+  .b2 { height:48px; box-shadow:var(--shadow-md); }
+  .b3 { height:56px; box-shadow:var(--shadow-lg); }
+  .b4 { height:64px; box-shadow:var(--shadow-xl); }
+  .b5 { height:72px; box-shadow:var(--shadow-2xl); }
+  .lab { font-size:11px; font-weight:600; }
+  .sub { font-size:10px; color:var(--fg3); }
+  body { background:var(--gray-50); }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="e"><div class="box b1"></div><span class="lab">sm</span><span class="sub">tags</span></div>
+    <div class="e"><div class="box b2"></div><span class="lab">md</span><span class="sub">cards</span></div>
+    <div class="e"><div class="box b3"></div><span class="lab">lg</span><span class="sub">btn hover</span></div>
+    <div class="e"><div class="box b4"></div><span class="lab">xl</span><span class="sub">card hover</span></div>
+    <div class="e"><div class="box b5"></div><span class="lab">2xl</span><span class="sub">hero photo</span></div>
+  </div>
+  <div class="muted" style="margin-top:14px">Neutral black-alpha elevation, Tailwind scale — no colored or inset shadows</div>
+</body></html>

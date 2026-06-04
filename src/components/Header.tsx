@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun, Github, Linkedin } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { siteConfig } from "../data/siteConfig";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,8 +59,8 @@ const Header = () => {
             className="text-xl font-bold flex items-center"
             onClick={closeMenu}
           >
-            <span className="text-primary-500">Diogo</span>
-            <span>.dev</span>
+            <span className="text-primary-500">{siteConfig.brandPrefix}</span>
+            <span>{siteConfig.brandSuffix}</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -80,7 +81,7 @@ const Header = () => {
             {/* Social Icons */}
             <div className="flex items-center space-x-4">
               <a
-                href="https://github.com/Goncalves745"
+                href={siteConfig.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary-500 transition-colors duration-300"
@@ -88,7 +89,7 @@ const Header = () => {
                 <Github size={20} />
               </a>
               <a
-                href="https://www.linkedin.com/in/diogo-goncalves-448814248"
+                href={siteConfig.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary-500 transition-colors duration-300"

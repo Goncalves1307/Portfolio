@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .bar { margin-bottom:13px; }
+  .lab { display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:6px; }
+  .lab .pct { color:#059669; }
+  .track { height:9px; border-radius:9999px; background:var(--gray-200); overflow:hidden; }
+  .fill { height:100%; border-radius:9999px; background:linear-gradient(90deg,#10b981,#0d9488); }
+</style></head>
+<body>
+  <div class="bar"><div class="lab"><span>JavaScript</span><span class="pct">90%</span></div><div class="track"><div class="fill" style="width:90%"></div></div></div>
+  <div class="bar"><div class="lab"><span>React</span><span class="pct">85%</span></div><div class="track"><div class="fill" style="width:85%"></div></div></div>
+  <div class="bar"><div class="lab"><span>Python</span><span class="pct">80%</span></div><div class="track"><div class="fill" style="width:80%"></div></div></div>
+  <div class="muted">Skill bars — track <span class="mono">gray-200</span>, fill emerald→teal, width animates 0→level% over 1s ease-out</div>
+</body></html>

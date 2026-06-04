@@ -1,0 +1,20 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:15px; border-radius:8px; padding:11px 22px; border:none; cursor:pointer; transition:all .3s; }
+  .btn svg { width:17px; height:17px; }
+  .primary { background:#059669; color:#fff; box-shadow:var(--shadow-md); }
+  .secondary { background:#0d9488; color:#fff; box-shadow:var(--shadow-md); }
+  .ghost { background:transparent; color:var(--fg1); border:1px solid var(--gray-300); }
+</style></head>
+<body>
+  <div class="row" style="gap:14px">
+    <button class="btn primary">Get in touch
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
+    <button class="btn secondary">Download CV
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+    </button>
+    <button class="btn ghost">View More</button>
+  </div>
+  <div class="muted" style="margin-top:16px">Primary <span class="mono">emerald-600 → hover 700</span> · Secondary teal · Ghost bordered · all <span class="mono">rounded-lg</span>, semibold, trailing lucide icon</div>
+</body></html>

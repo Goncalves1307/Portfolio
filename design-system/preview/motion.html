@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  body { overflow:hidden; }
+  .stage { display:flex; gap:30px; align-items:center; }
+  .blob { width:96px; height:96px; border-radius:9999px; filter:blur(14px); opacity:.5; animation:pulse 4s ease-in-out infinite; }
+  .b1 { background:#10b981; } .b2 { background:#14b8a6; animation-delay:.6s; } .b3 { background:#84cc16; animation-delay:1.2s; }
+  @keyframes pulse { 0%,100%{ transform:scale(1); opacity:.5 } 50%{ transform:scale(1.15); opacity:.3 } }
+  .lift { width:120px; height:74px; background:#fff; border-radius:12px; box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--fg3); font-weight:600; transition:all .3s; animation:lift 2.4s ease-in-out infinite; }
+  @keyframes lift { 0%,100%{ transform:translateY(0); box-shadow:var(--shadow-md) } 50%{ transform:translateY(-5px); box-shadow:var(--shadow-xl) } }
+</style></head>
+<body>
+  <div class="stage">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    <div class="lift">hover&nbsp;−5px</div>
+  </div>
+  <div class="muted" style="margin-top:18px">Ambient <span class="mono">pulse-slow 4s</span> blobs · cards lift −5px + deepen shadow · entrances fade+20px slide-up, staggered · ease-out</div>
+</body></html>

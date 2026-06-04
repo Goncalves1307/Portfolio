@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# Stray git internal file accidentally committed once
+FETCH_HEAD
+
+# Large design-system source archive (kept locally, not versioned)
+design-system/*.zip
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

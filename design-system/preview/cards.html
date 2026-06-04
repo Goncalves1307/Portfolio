@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  body { background:var(--gray-50); }
+  .wrap { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .card { background:#fff; border-radius:12px; box-shadow:var(--shadow-md); overflow:hidden; }
+  .card .body { padding:14px 16px; }
+  .card img { width:100%; height:90px; object-fit:cover; display:block; }
+  .cat { font-size:11px; font-weight:600; color:#0d9488; text-transform:uppercase; letter-spacing:.04em; }
+  .ti { font-size:16px; font-weight:700; margin:3px 0 5px; }
+  .de { font-size:12.5px; color:var(--fg2); line-height:1.5; }
+  .tags { display:flex; gap:6px; margin-top:9px; }
+  .tag { font-size:11px; padding:2px 8px; border-radius:6px; background:#ecfdf5; color:#047857; }
+  .icowell { width:42px; height:42px; border-radius:9999px; background:#d1fae5; display:flex; align-items:center; justify-content:center; }
+  .icowell svg { width:21px; height:21px; stroke:#059669; }
+</style></head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <img src="../assets/bookvault1.png" alt="">
+      <div class="body">
+        <div class="cat">Android App</div>
+        <div class="ti">BookVault</div>
+        <div class="de">A book-tracking app to organise your reading life.</div>
+        <div class="tags"><span class="tag">Kotlin</span><span class="tag">Android</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="body" style="display:flex;gap:13px;align-items:flex-start">
+        <div class="icowell"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+        <div>
+          <div class="ti" style="margin-top:2px">Clean, lifting cards</div>
+          <div class="de">White surface · <span class="mono">rounded-xl</span> · shadow-md resting → shadow-xl + −5px on hover. Icon wells are tinted circles.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body></html>
