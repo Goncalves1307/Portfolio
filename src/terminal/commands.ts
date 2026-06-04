@@ -1,6 +1,6 @@
 import {
   profile, skillGroups, projects, education, work,
-  interests, experienceTimeline, stackGroups, cvFiles,
+  interests, experienceTimeline, stackGroups, cvFiles, fileSystem, quotes,
 } from './content';
 import type { CommandContext, OutputLine, Registry, RunResult } from './types';
 import { t, line, link, blank } from './types';
@@ -152,6 +152,46 @@ export function wrap(text: string, width: number): string[] {
   return lines;
 }
 
+function lsLines(): OutputLine[] {
+  return [Object.keys(fileSystem).map((f) => ({
+    text: f.padEnd(16),
+    className: f.endsWith('/') ? 't-blue' : 't-fg',
+  }))];
+}
+
+function treeLines(): OutputLine[] {
+  const names = Object.keys(fileSystem);
+  const out: OutputLine[] = [line('.', 't-accent')];
+  names.forEach((n, i) => {
+    const last = i === names.length - 1;
+    out.push([t(last ? '└── ' : '├── ', 't-dim'), t(n, n.endsWith('/') ? 't-blue' : 't-fg')]);
+  });
+  return out;
+}
+
+function catLines(arg: string | undefined, registry: Registry): RunResult {
+  if (!arg) return { kind: 'output', lines: [line('usage: cat <file>  (see `ls`)', 't-amber')] };
+  const target = fileSystem[arg] ?? fileSystem[arg + '/'];
+  if (!target) return { kind: 'output', lines: [[t(`cat: ${arg}: No such file`, 't-red')]] };
+  return registry[target].run([], { history: [], theme: 'green', registry });
+}
+
+function manLines(arg: string | undefined, registry: Registry): OutputLine[] {
+  if (!arg) return [line('what manual page do you want? (try: man help)', 't-amber')];
+  const cmd = registry[arg.toLowerCase()];
+  if (!cmd) return [[t(`No manual entry for ${arg}`, 't-red')]];
+  return [
+    line('NAME', 't-amber'),
+    line('    ' + cmd.name + ' — ' + cmd.summary),
+    blank,
+    line('SYNOPSIS', 't-amber'),
+    line('    ' + (cmd.usage ?? cmd.name)),
+    blank,
+    line('DESCRIPTION', 't-amber'),
+    line('    ' + (cmd.manual ?? cmd.summary)),
+  ];
+}
+
 // ── registry ──────────────────────────────────────────────────────────
 export const registry: Registry = {
   help: {
@@ -237,6 +277,74 @@ export const registry: Registry = {
   cv: {
     name: 'cv', category: 'me', summary: 'alias of resume', hidden: true,
     run: (args, ctx) => ctx.registry.resume.run(args, ctx),
+  },
+  ls: {
+    name: 'ls', category: 'system', summary: 'list files',
+    run: () => ({ kind: 'output', lines: lsLines() }),
+  },
+  tree: {
+    name: 'tree', category: 'system', summary: 'show file tree',
+    run: () => ({ kind: 'output', lines: treeLines() }),
+  },
+  cat: {
+    name: 'cat', category: 'system', summary: 'print a file', usage: 'cat <file>',
+    run: (args, ctx) => catLines(args[0], ctx.registry),
+  },
+  man: {
+    name: 'man', category: 'system', summary: 'manual page', usage: 'man <command>',
+    run: (args, ctx) => ({ kind: 'output', lines: manLines(args[0], ctx.registry) }),
+  },
+  echo: {
+    name: 'echo', category: 'system', summary: 'print text', usage: 'echo <text>',
+    run: (args) => ({ kind: 'output', lines: [line(args.join(' '))] }),
+  },
+  history: {
+    name: 'history', category: 'system', summary: 'command history',
+    run: (_a, ctx) => ({ kind: 'output',
+      lines: ctx.history.map((h, i) => [t(String(i + 1).padStart(4) + '  ', 't-dim'), t(h)]) }),
+  },
+  sudo: {
+    name: 'sudo', category: 'system', summary: 'superuser do (nice try)',
+    run: (args) => ({ kind: 'output',
+      lines: [[t(`guest is not in the sudoers file. This incident will be reported.`, 't-red')],
+        ...(args.length ? [line(`(you asked to: ${args.join(' ')})`, 't-dim')] : [])] }),
+  },
+  uptime: {
+    name: 'uptime', category: 'system', summary: 'how long Diogo has been coding',
+    run: () => ({ kind: 'output', lines: [[t('up since 2022 — ', 't-fg'), t('load average: ☕ ☕ ☕', 't-amber')]] }),
+  },
+  date: {
+    name: 'date', category: 'system', summary: 'current date/time',
+    run: () => ({ kind: 'output', lines: [line(new Date().toString())] }),
+  },
+  motd: {
+    name: 'motd', category: 'fun', summary: 'message of the day',
+    run: () => ({ kind: 'output', lines: [line(quotes[new Date().getMinutes() % quotes.length], 't-amber')] }),
+  },
+  weather: {
+    name: 'weather', category: 'fun', summary: 'Matosinhos forecast',
+    run: () => ({ kind: 'output', lines: [
+      [t('Matosinhos: ', 't-fg'), t('☀ 19°C', 't-amber'), t('  light Atlantic breeze ●', 't-dim')] ] }),
+  },
+  coffee: {
+    name: 'coffee', category: 'fun', summary: 'brew a coffee',
+    run: () => ({ kind: 'output', lines: [
+      line('      ( (', 't-dim'), line('       ) )', 't-dim'),
+      line('    ........', 't-amber'), line('    |      |]', 't-amber'),
+      line('    \\      /', 't-amber'), line('     `----´', 't-amber'),
+      line('  ☕ enjoy your coffee', 't-accent') ] }),
+  },
+  banner: {
+    name: 'banner', category: 'fun', summary: 'reprint the banner',
+    run: () => ({ kind: 'output', lines: [line('diogo.dev', 't-accent')] }),
+  },
+  gui: {
+    name: 'gui', category: 'system', summary: 'boot the graphical desktop',
+    run: () => ({ kind: 'effect', effect: 'goto-gui', lines: [line('switching to desktop…', 't-dim')] }),
+  },
+  exit: {
+    name: 'exit', category: 'system', summary: 'return to the boot menu',
+    run: () => ({ kind: 'effect', effect: 'exit', lines: [line('logging out…', 't-dim')] }),
   },
 };
 
