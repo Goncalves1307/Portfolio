@@ -10,11 +10,11 @@ import Hud from './Hud';
 import MatrixRain from './MatrixRain';
 
 type Block = { command: string | null; lines: OutputLine[] };
-type TerminalProps = { onExit: () => void };
+type TerminalProps = { onExit: () => void; onGui: () => void };
 
 const CHIPS = ['help', 'about', 'skills', 'projects', 'contact'];
 
-export default function Terminal({ onExit }: TerminalProps) {
+export default function Terminal({ onExit, onGui }: TerminalProps) {
   const [phase, setPhase] = useState<'boot' | 'ready'>('boot');
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [input, setInput] = useState('');
@@ -66,14 +66,14 @@ export default function Terminal({ onExit }: TerminalProps) {
           a.href = arg; a.download = ''; a.click();
         }
         break;
-      case 'goto-gui': window.location.hash = 'gui'; break;
+      case 'goto-gui': onGui(); break;
       case 'exit': onExit(); break;
       case 'theme': if (arg) setTheme(arg); break;
       case 'matrix': setMatrixOn((m) => !m); break;
       case 'crt': setCrtOn((c) => !c); break;
       default: break;
     }
-  }, [onExit]);
+  }, [onExit, onGui]);
 
   const execute = useCallback((raw: string) => {
     const cmd = raw.trim();

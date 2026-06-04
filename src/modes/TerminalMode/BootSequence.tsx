@@ -43,18 +43,25 @@ export default function BootSequence({ onDone }: BootSequenceProps) {
       timers.push(window.setTimeout(() => setShown(i + 1), 250 * (i + 1)));
     });
     const afterServices = 250 * (SERVICES.length + 1);
+    const spinId = window.setInterval(() => setSpin((s) => (s + 1) % SPINNER.length), 90);
+    const endId = window.setTimeout(finish, afterServices + 1700);
+    timers.push(spinId, endId);
+    return () => timers.forEach((t) => clearTimeout(t));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Fill the progress bar only once all services are shown, so the fill is visible.
+  useEffect(() => {
+    if (reducedMotion()) return;
+    if (shown < SERVICES.length) return;
     const barId = window.setInterval(() => {
       setPct((p) => {
         if (p >= 100) { clearInterval(barId); return 100; }
         return Math.min(100, p + 7);
       });
     }, 70);
-    const spinId = window.setInterval(() => setSpin((s) => (s + 1) % SPINNER.length), 90);
-    const endId = window.setTimeout(finish, afterServices + 1700);
-    timers.push(barId, spinId, endId);
-    return () => timers.forEach((t) => clearTimeout(t));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => clearInterval(barId);
+  }, [shown]);
 
   const cells = Math.round(pct / 12.5); // 8 cells
   const bar = '■'.repeat(cells) + '·'.repeat(8 - cells);

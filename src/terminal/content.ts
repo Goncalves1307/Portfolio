@@ -112,6 +112,13 @@ export const quotes = [
   'Simplicity is the soul of efficiency. — Austin Freeman',
 ];
 
+export const bannerArt = [
+  ' ___  _  ___   ___  ___  ',
+  '|   \\| |/ _ \\ / __|/ _ \\ ',
+  '| |) | | (_) | (_ | (_) |',
+  '|___/|_|\\___/ \\___|\\___/ ',
+];
+
 /** Fake filesystem for ls/tree/cat. Files map to renderable command names. */
 export const fileSystem: Record<string, string> = {
   'about.txt': 'about',

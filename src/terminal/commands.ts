@@ -1,6 +1,6 @@
 import {
   profile, skillGroups, projects, education, work,
-  interests, experienceTimeline, stackGroups, cvFiles, fileSystem, quotes,
+  interests, experienceTimeline, stackGroups, cvFiles, fileSystem, quotes, bannerArt,
 } from './content';
 import type { CommandContext, OutputLine, Registry, RunResult } from './types';
 import { t, line, link, blank } from './types';
@@ -335,9 +335,17 @@ export const registry: Registry = {
       line('    \\      /', 't-amber'), line('     `----´', 't-amber'),
       line('  ☕ enjoy your coffee', 't-accent') ] }),
   },
+  matrix: {
+    name: 'matrix', category: 'fun', summary: 'toggle the matrix rain',
+    run: () => ({ kind: 'effect', effect: 'matrix', lines: [line('matrix rain toggled', 't-dim')] }),
+  },
+  crt: {
+    name: 'crt', category: 'fun', summary: 'toggle the CRT overlay',
+    run: () => ({ kind: 'effect', effect: 'crt', lines: [line('CRT overlay toggled', 't-dim')] }),
+  },
   banner: {
     name: 'banner', category: 'fun', summary: 'reprint the banner',
-    run: () => ({ kind: 'output', lines: [line('diogo.dev', 't-accent')] }),
+    run: () => ({ kind: 'output', lines: bannerArt.map((l) => line(l, 't-accent')) }),
   },
   gui: {
     name: 'gui', category: 'system', summary: 'boot the graphical desktop',

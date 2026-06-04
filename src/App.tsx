@@ -13,7 +13,7 @@ export default function App() {
       {mode === 'boot' && (
         <BootMenu onSelect={(m) => setMode(m)} />
       )}
-      {mode === 'terminal' && <Terminal onExit={() => setMode('boot')} />}
+      {mode === 'terminal' && <Terminal onExit={() => setMode('boot')} onGui={() => setMode('gui')} />}
       {mode === 'gui' && <GuiMode onReboot={() => setMode('boot')} />}
     </Suspense>
   );

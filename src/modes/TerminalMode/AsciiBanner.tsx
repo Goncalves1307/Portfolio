@@ -1,11 +1,8 @@
-// Built as an array of single-quoted strings (no template literal) so the art
-// can contain backslashes (escaped as \\) without any backtick/escape hazard.
-const ART = [
-  ' ___  _  ___   ___  ___  ',
-  '|   \\| |/ _ \\ / __|/ _ \\ ',
-  '| |) | | (_) | (_ | (_) |',
-  '|___/|_|\\___/ \\___|\\___/ ',
-].join('\n');
+// Art lives in content.ts (shared with the `banner` command). Built as an array
+// of single-quoted strings (no template literal) so it can contain backslashes.
+import { bannerArt } from '../../terminal/content';
+
+const ART = bannerArt.join('\n');
 
 export default function AsciiBanner() {
   return (
