@@ -7,6 +7,7 @@ import { run, completionNames } from '../../terminal/commands';
 import type { OutputLine } from '../../terminal/types';
 import { applyTheme } from '../../terminal/themes';
 import Hud from './Hud';
+import MatrixRain from './MatrixRain';
 
 type Block = { command: string | null; lines: OutputLine[] };
 type TerminalProps = { onExit: () => void };
@@ -133,6 +134,7 @@ export default function Terminal({ onExit }: TerminalProps) {
       className={`terminal-root flex flex-col p-4 sm:p-6 ${crtOn ? 't-crt t-crt-flicker' : ''}`}
       onClick={() => inputRef.current?.focus()}
     >
+      {matrixOn && <MatrixRain />}
       <Hud
         onTheme={(n) => setTheme(n)}
         matrixOn={matrixOn}
@@ -140,55 +142,57 @@ export default function Terminal({ onExit }: TerminalProps) {
         crtOn={crtOn}
         onToggleCrt={() => setCrtOn((c) => !c)}
       />
-      <AsciiBanner />
+      <div className="relative z-10 flex flex-1 flex-col min-h-0">
+        <AsciiBanner />
 
-      <div className="flex flex-wrap gap-2 my-3">
-        {chips.map((c) => (
-          <button
-            key={c}
-            onClick={(e) => { e.stopPropagation(); if (done) execute(c); else skip(); }}
-            className="rounded-md border border-[#2ea043]/50 px-3 py-1 text-sm t-accent hover:bg-[#39d353] hover:text-[#010409] transition-colors"
-          >
-            {c}
-          </button>
-        ))}
+        <div className="flex flex-wrap gap-2 my-3">
+          {chips.map((c) => (
+            <button
+              key={c}
+              onClick={(e) => { e.stopPropagation(); if (done) execute(c); else skip(); }}
+              className="rounded-md border border-[#2ea043]/50 px-3 py-1 text-sm t-accent hover:bg-[#39d353] hover:text-[#010409] transition-colors"
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+
+        <div ref={scrollRef} className="flex-1 overflow-y-auto pr-1">
+          {blocks.map((b, bi) => {
+            const isLast = bi === blocks.length - 1;
+            const renderLines = isLast ? sliceLines(b.lines, visible) : b.lines;
+            return (
+              <div key={bi} className="mb-2">
+                {b.command !== null && (
+                  <p><span className="t-accent">guest@diogo.dev:~$</span> <span className="t-fg">{b.command}</span></p>
+                )}
+                {renderLines.map((ln, li) => (
+                  <p key={li} className="whitespace-pre-wrap break-words">
+                    {ln.map((tok, ti) =>
+                      tok.href ? (
+                        <a key={ti} href={tok.href} target="_blank" rel="noopener noreferrer"
+                           onClick={(e) => e.stopPropagation()} className={tok.className}>{tok.text}</a>
+                      ) : (
+                        <span key={ti} className={tok.className}>{tok.text}</span>
+                      ),
+                    )}
+                    {isLast && !done && li === renderLines.length - 1 && <span className="t-caret">▌</span>}
+                  </p>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+
+        <Prompt
+          ref={inputRef}
+          value={input}
+          onChange={setInput}
+          onSubmit={onSubmit}
+          onKeyDown={onKeyDown}
+          disabled={!done}
+        />
       </div>
-
-      <div ref={scrollRef} className="flex-1 overflow-y-auto pr-1">
-        {blocks.map((b, bi) => {
-          const isLast = bi === blocks.length - 1;
-          const renderLines = isLast ? sliceLines(b.lines, visible) : b.lines;
-          return (
-            <div key={bi} className="mb-2">
-              {b.command !== null && (
-                <p><span className="t-accent">guest@diogo.dev:~$</span> <span className="t-fg">{b.command}</span></p>
-              )}
-              {renderLines.map((ln, li) => (
-                <p key={li} className="whitespace-pre-wrap break-words">
-                  {ln.map((tok, ti) =>
-                    tok.href ? (
-                      <a key={ti} href={tok.href} target="_blank" rel="noopener noreferrer"
-                         onClick={(e) => e.stopPropagation()} className={tok.className}>{tok.text}</a>
-                    ) : (
-                      <span key={ti} className={tok.className}>{tok.text}</span>
-                    ),
-                  )}
-                  {isLast && !done && li === renderLines.length - 1 && <span className="t-caret">▌</span>}
-                </p>
-              ))}
-            </div>
-          );
-        })}
-      </div>
-
-      <Prompt
-        ref={inputRef}
-        value={input}
-        onChange={setInput}
-        onSubmit={onSubmit}
-        onKeyDown={onKeyDown}
-        disabled={!done}
-      />
     </div>
   );
 }
