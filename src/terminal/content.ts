@@ -88,3 +88,36 @@ export const projects: Project[] = [
 ];
 
 export const cvFiles = { pt: '/cv_pt.pdf', en: '/cv_en.pdf' } as const;
+
+export const interests = ['Gym & fitness', 'Cars', 'Coffee ☕', 'Game dev', 'Self-hosting'];
+
+export const experienceTimeline = [
+  { when: '2022 — Present', what: 'BSc Computer Science', where: 'UMAIA' },
+  { when: 'Since 2022', what: 'Technical Specialist', where: 'Worten' },
+  { when: 'Ongoing', what: 'Udemy courses (full-stack)', where: 'self-taught' },
+];
+
+export const stackGroups = [
+  { group: 'Frontend', items: ['React', 'TypeScript', 'Tailwind', 'HTML', 'CSS'] },
+  { group: 'Backend', items: ['Node.js', 'Express', 'Django', 'Prisma'] },
+  { group: 'Data', items: ['PostgreSQL', 'MySQL', 'SQL'] },
+  { group: 'Tooling', items: ['Git', 'GitHub', 'Docker', 'Vite'] },
+];
+
+export const quotes = [
+  'Talk is cheap. Show me the code. — Linus Torvalds',
+  'First, solve the problem. Then, write the code. — John Johnson',
+  'Programs must be written for people to read. — Abelson & Sussman',
+  'Make it work, make it right, make it fast. — Kent Beck',
+  'Simplicity is the soul of efficiency. — Austin Freeman',
+];
+
+/** Fake filesystem for ls/tree/cat. Files map to renderable command names. */
+export const fileSystem: Record<string, string> = {
+  'about.txt': 'about',
+  'skills.md': 'skills',
+  'projects/': 'projects',
+  'contact.vcf': 'contact',
+  'resume.pdf': 'resume',
+  'experience.log': 'experience',
+};
