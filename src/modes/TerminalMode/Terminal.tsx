@@ -5,6 +5,7 @@ import Prompt from './Prompt';
 import { useTypewriter, sliceLines } from '../../hooks/useTypewriter';
 import { run, completionNames } from '../../terminal/commands';
 import type { OutputLine } from '../../terminal/types';
+import { applyTheme } from '../../terminal/themes';
 
 type Block = { command: string | null; lines: OutputLine[] };
 type TerminalProps = { onExit: () => void };
@@ -17,12 +18,20 @@ export default function Terminal({ onExit }: TerminalProps) {
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [histIdx, setHistIdx] = useState<number | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [theme, setTheme] = useState<string>(() => localStorage.getItem('termTheme') ?? 'green');
 
   // Typewriter drives ONLY the most recent block.
   const lastLines = blocks.length ? blocks[blocks.length - 1].lines : [];
   const { visible, done, skip } = useTypewriter(lastLines);
+
+  // Apply phosphor theme + persist.
+  useEffect(() => {
+    if (rootRef.current) applyTheme(rootRef.current, theme);
+    localStorage.setItem('termTheme', theme);
+  }, [theme]);
 
   // Auto-scroll to bottom as output reveals.
   useEffect(() => {
@@ -32,7 +41,7 @@ export default function Terminal({ onExit }: TerminalProps) {
   // After boot, seed the first block (auto-run whoami) and focus input.
   const onBootDone = useCallback(() => {
     setPhase('ready');
-    const res = run('whoami', { history: [], theme: 'green' });
+    const res = run('whoami', { history: [], theme });
     if (res.kind === 'output') setBlocks([{ command: 'whoami', lines: res.lines }]);
     setHistory(['whoami']);
   }, []);
@@ -52,14 +61,15 @@ export default function Terminal({ onExit }: TerminalProps) {
         break;
       case 'goto-gui': window.location.hash = 'gui'; break;
       case 'exit': onExit(); break;
-      // 'theme' | 'matrix' | 'crt' handled in Phase 4 (Task 15/16)
+      case 'theme': if (arg) setTheme(arg); break;
+      // 'matrix' | 'crt' handled in Task 16
       default: break;
     }
   }, [onExit]);
 
   const execute = useCallback((raw: string) => {
     const cmd = raw.trim();
-    const res = run(cmd, { history, theme: 'green' });
+    const res = run(cmd, { history, theme });
     if (cmd) setHistory((h) => [...h, cmd]);
     setHistIdx(null);
     setInput('');
@@ -112,6 +122,7 @@ export default function Terminal({ onExit }: TerminalProps) {
 
   return (
     <div
+      ref={rootRef}
       className="terminal-root flex flex-col p-4 sm:p-6"
       onClick={() => inputRef.current?.focus()}
     >

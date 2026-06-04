@@ -4,6 +4,7 @@ import {
 } from './content';
 import type { CommandContext, OutputLine, Registry, RunResult } from './types';
 import { t, line, link, blank } from './types';
+import { THEME_NAMES } from './themes';
 
 // ── individual command output builders ───────────────────────────────
 function aboutLines(): OutputLine[] {
@@ -345,6 +346,20 @@ export const registry: Registry = {
   exit: {
     name: 'exit', category: 'system', summary: 'return to the boot menu',
     run: () => ({ kind: 'effect', effect: 'exit', lines: [line('logging out…', 't-dim')] }),
+  },
+  theme: {
+    name: 'theme', category: 'system', summary: 'change phosphor color',
+    usage: 'theme <green|amber|cyan|magenta|blue|white>',
+    run: (args) => {
+      const name = (args[0] ?? '').toLowerCase();
+      if (!THEME_NAMES.includes(name)) {
+        return { kind: 'output', lines: [
+          [t('usage: theme <color>', 't-amber')],
+          [t('available: ', 't-dim'), t(THEME_NAMES.join(', '), 't-fg')] ] };
+      }
+      return { kind: 'effect', effect: 'theme', arg: name,
+        lines: [[t('phosphor set to ', 't-dim'), t(name, 't-accent')]] };
+    },
   },
 };
 
